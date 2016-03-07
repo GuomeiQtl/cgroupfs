@@ -78,6 +78,6 @@ func init() {
 			subsysName: "cpuset",
 		}
 
-		cpuinfoModifier, _ = regexp.Compile("processor\\s+?:\\s+?(\\d)")
+		cpuinfoModifier, _ = regexp.Compile("processor\\s+?:\\s+?(\\d+)")
 	}
 }
