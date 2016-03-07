@@ -106,6 +106,6 @@ func init() {
 			subsysName: "cpuset",
 		}
 
-		statModifier, _ = regexp.Compile("cpu(\\d)?")
+		statModifier, _ = regexp.Compile("cpu(\\d+)?")
 	}
 }
