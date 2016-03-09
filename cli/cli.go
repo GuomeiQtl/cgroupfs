@@ -8,7 +8,7 @@ import (
 
 	_ "bazil.org/fuse/fs/fstestutil"
 
-	"../../cgroupfs-master"
+	"github.com/adazhou16/cgroupfs"
 )
 
 var Usage = func() {
