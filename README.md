@@ -12,12 +12,13 @@ Like lxcfs https://github.com/lxc/lxcfs, cgroupfs provides an emulated /proc/mem
     ## go to the first tab
     docker start $container_id
 
-    docker exec -it $container_id bash
-    root@251d4d18bca6:/# free -m
-                 total       used       free     shared    buffers     cached
-    Mem:            15          2         12          0          0          1
-    -/+ buffers/cache:          0         14
-    Swap:            0          0          0
+    [root@test-display ~]# free -g
+             total       used       free     shared    buffers     cached
+    Mem:             8          0          7          0          0          0
+    -/+ buffers/cache:          0          7 
+    Swap:            0          0          0 
+    
+    
 
 # build
     go build -o cgroupfs github.com/adazhou16/cgroupfs/cli
