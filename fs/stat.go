@@ -70,7 +70,15 @@ func (sf StatFile) getStatInfo(buffer *bytes.Buffer, cpuIDs []int) {
 			// we do not check the error after calling parseUnit, because
 			// kernel guarantees for us
 			if len(groups[1]) == 0 && cpuStat == nil {
-				cpuStat = make([]uint64, len(strings.Split(line, " ")))
+                                //modify actual column is len -1 
+                                cpuStat = make([]uint64, len(strings.Split(line, " "))-1-1)
+				// cpuStat = make([]uint64, len(strings.Split(line, " ")))
+                                
+                                //for _, item := range strings.Split(line, " ") {
+			        //    fmt.Println(item) 
+			        //}
+                                //add
+                                continue
 			}
 
 			cpuID, _ := parseUint(string(groups[1]), 10, 32)
@@ -88,12 +96,13 @@ func (sf StatFile) getStatInfo(buffer *bytes.Buffer, cpuIDs []int) {
 			tmpBuffer.WriteString("\n")
 		}
 	}
-
 	buffer.WriteString("cpu")
 	for _, item := range cpuStat {
 		buffer.WriteString(" ")
 		buffer.WriteString(strconv.FormatUint(item, 10))
 	}
+        //add 
+	buffer.WriteString("\n")
 
 	buffer.Write(tmpBuffer.Bytes())
 }

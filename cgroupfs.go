@@ -10,7 +10,7 @@ import (
 	fusefs "bazil.org/fuse/fs"
 	_ "bazil.org/fuse/fs/fstestutil"
 
-	"github.com/adazhou16/cgroupfs/fs"
+	"./fs"
 )
 
 func Serve(mountPoint, cgroupDir, vethName string) error {
