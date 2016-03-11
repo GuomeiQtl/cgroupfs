@@ -35,3 +35,6 @@ Like lxcfs https://github.com/lxc/lxcfs, cgroupfs provides an emulated /proc/mem
 
 # build
     go build -o cgroupfs github.com/adazhou16/cgroupfs/cli
+    
+    
+    #test
