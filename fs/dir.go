@@ -2,6 +2,7 @@ package fs
 
 import (
 	"os"
+	"os/user"
 	"path/filepath"
 	"sync"
 
@@ -48,8 +49,8 @@ func (Dir) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_DIR
 
 	user, err := user.Current()
-	a.Uid = user.Uid
-	a.Gid = user.Gid
+	a.Uid = uint32(user.Uid)
+	a.Gid = uint32(user.Gid)
 	a.Mode = os.ModeDir | 0777
 	return nil
 }

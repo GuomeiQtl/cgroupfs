@@ -9,6 +9,7 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"os/user"
 
 	"github.com/Sirupsen/logrus"
 	"github.com/opencontainers/runc/libcontainer/cgroups"
@@ -67,8 +68,9 @@ const (
 func (ds DiskStatsFile) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_DISKSTATS
 	a.Mode = 0777
-	a.Uid = user.Uid
-	a.Gid = user.Gid
+	user, err := user.Current()
+	a.Uid = uint32(user.Uid)
+	a.Gid = uint32(user.Gid)
 	data, _ := ds.ReadAll(ctx)
 	a.Size = uint64(len(data))
 	return nil

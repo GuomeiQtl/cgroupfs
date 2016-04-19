@@ -3,6 +3,7 @@ package fs
 import (
 	"bazil.org/fuse"
 	_ "bazil.org/fuse/fs/fstestutil"
+	"os/user"
 
 	"golang.org/x/net/context"
 )
@@ -15,8 +16,9 @@ const greeting = "hello there, this is cgroupfs\n"
 func (File) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_HELLO
 	a.Mode = 0777
-	a.Uid = user.Uid
-	a.Gid = user.Gid
+	user, err := user.Current()
+	a.Uid = uint32(user.Uid)
+	a.Gid = uint32(user.Gid)
 	a.Size = uint64(len(greeting))
 	return nil
 }

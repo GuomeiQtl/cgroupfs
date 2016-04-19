@@ -12,6 +12,7 @@ import (
 	"bazil.org/fuse"
 	fusefs "bazil.org/fuse/fs"
 	"golang.org/x/net/context"
+	"os/user"
 )
 
 type StatFile struct {
@@ -29,8 +30,9 @@ func NewStatFile(cgroupdir string) fusefs.Node {
 func (sf StatFile) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_STAT
 	a.Mode = 0777
-	a.Uid = user.Uid
-	a.Gid = user.Gid
+	user, err := user.Current()
+	a.Uid = uint32(user.Uid)
+	a.Gid = uint32(user.Gid)
 	data, _ := sf.ReadAll(ctx)
 	a.Size = uint64(len(data))
 
