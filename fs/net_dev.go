@@ -35,8 +35,8 @@ func NewNetDevFile(vethName string) fusefs.Node {
 func (nd NetDevFile) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_NET_DEV
 	a.Mode = 0777
-	a.uid = user.Uid
-	a.gid = user.Gid
+	a.Uid = user.Uid
+	a.Gid = user.Gid
 	data, _ := nd.ReadAll(ctx)
 	a.Size = uint64(len(data))
 	return nil

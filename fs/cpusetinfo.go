@@ -30,10 +30,8 @@ func (ci CpuInfoFile) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_CPUINFO
 	a.Mode = 0777
 	user, err := user.Current()
-	uid = user.Uid
-	gid = user.Gid
-	a.uid = uid
-	a.gid = gid
+	a.Uid = user.Uid
+	a.Gid = user.Gid
 
 	data, _ := ci.ReadAll(ctx)
 	a.Size = uint64(len(data))
