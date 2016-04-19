@@ -46,6 +46,12 @@ type FileInfo struct {
 
 func (Dir) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_DIR
+
+	user, err := user.Current()
+	uid = user.Uid
+	gid = user.Gid
+	a.uid = uid
+	a.gid = gid
 	a.Mode = os.ModeDir | 0777
 	return nil
 }
