@@ -46,7 +46,7 @@ type FileInfo struct {
 
 func (Dir) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_DIR
-	a.Mode = os.ModeDir | 0555
+	a.Mode = os.ModeDir | 0777
 	return nil
 }
 

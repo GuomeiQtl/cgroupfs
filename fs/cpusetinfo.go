@@ -27,7 +27,7 @@ func NewCpuInfoFile(cgroupdir string) fusefs.Node {
 
 func (ci CpuInfoFile) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_CPUINFO
-	a.Mode = 0444
+	a.Mode = 0777
 	data, _ := ci.ReadAll(ctx)
 	a.Size = uint64(len(data))
 

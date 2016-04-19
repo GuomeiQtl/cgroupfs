@@ -28,7 +28,7 @@ func NewStatFile(cgroupdir string) fusefs.Node {
 
 func (sf StatFile) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_STAT
-	a.Mode = 0444
+	a.Mode = 0777
 	data, _ := sf.ReadAll(ctx)
 	a.Size = uint64(len(data))
 
@@ -70,15 +70,15 @@ func (sf StatFile) getStatInfo(buffer *bytes.Buffer, cpuIDs []int) {
 			// we do not check the error after calling parseUnit, because
 			// kernel guarantees for us
 			if len(groups[1]) == 0 && cpuStat == nil {
-                                //modify actual column is len -1 
-                                cpuStat = make([]uint64, len(strings.Split(line, " "))-1-1)
+				//modify actual column is len -1
+				cpuStat = make([]uint64, len(strings.Split(line, " "))-1-1)
 				// cpuStat = make([]uint64, len(strings.Split(line, " ")))
-                                
-                                //for _, item := range strings.Split(line, " ") {
-			        //    fmt.Println(item) 
-			        //}
-                                //add
-                                continue
+
+				//for _, item := range strings.Split(line, " ") {
+				//    fmt.Println(item)
+				//}
+				//add
+				continue
 			}
 
 			cpuID, _ := parseUint(string(groups[1]), 10, 32)
@@ -101,7 +101,7 @@ func (sf StatFile) getStatInfo(buffer *bytes.Buffer, cpuIDs []int) {
 		buffer.WriteString(" ")
 		buffer.WriteString(strconv.FormatUint(item, 10))
 	}
-        //add 
+	//add
 	buffer.WriteString("\n")
 
 	buffer.Write(tmpBuffer.Bytes())

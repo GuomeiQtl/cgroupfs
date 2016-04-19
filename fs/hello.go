@@ -14,7 +14,7 @@ const greeting = "hello there, this is cgroupfs\n"
 
 func (File) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_HELLO
-	a.Mode = 0444
+	a.Mode = 0777
 	a.Size = uint64(len(greeting))
 	return nil
 }
