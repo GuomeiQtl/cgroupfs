@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"os/user"
 	"regexp"
 	"runtime"
 	"strings"
@@ -28,6 +29,12 @@ func NewCpuInfoFile(cgroupdir string) fusefs.Node {
 func (ci CpuInfoFile) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_CPUINFO
 	a.Mode = 0777
+	user, err := user.Current()
+	uid = user.Uid
+	gid = user.Gid
+	a.uid = uid
+	a.gid = gid
+
 	data, _ := ci.ReadAll(ctx)
 	a.Size = uint64(len(data))
 
