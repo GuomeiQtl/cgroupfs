@@ -4,6 +4,7 @@ import (
 	"bazil.org/fuse"
 	_ "bazil.org/fuse/fs/fstestutil"
 	"os/user"
+	"strconv"
 
 	"golang.org/x/net/context"
 )
@@ -17,8 +18,16 @@ func (File) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_HELLO
 	a.Mode = 0777
 	user, err := user.Current()
-	a.Uid = uint32(user.Uid)
-	a.Gid = uint32(user.Gid)
+        uid, err := strconv.ParseInt(user.Uid, 10, 32)
+	if err != nil {
+		panic(err)
+	}
+	gid, err := strconv.ParseInt(user.Gid, 10, 32)
+	if err != nil {
+		panic(err)
+	}
+	a.Uid = uint32(uid)
+	a.Gid = uint32(gid)
 	a.Size = uint64(len(greeting))
 	return nil
 }

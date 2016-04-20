@@ -1,7 +1,7 @@
 package fs
 
 import (
-	"sync"
+	"sync" 
 
 	"bazil.org/fuse/fs"
 	_ "bazil.org/fuse/fs/fstestutil"

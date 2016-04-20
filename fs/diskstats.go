@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os/user"
+	"strconv"
 
 	"github.com/Sirupsen/logrus"
 	"github.com/opencontainers/runc/libcontainer/cgroups"
@@ -69,8 +70,16 @@ func (ds DiskStatsFile) Attr(ctx context.Context, a *fuse.Attr) error {
 	a.Inode = INODE_DISKSTATS
 	a.Mode = 0777
 	user, err := user.Current()
-	a.Uid = uint32(user.Uid)
-	a.Gid = uint32(user.Gid)
+        uid, err := strconv.ParseInt(user.Uid, 10, 32)
+	if err != nil {
+		panic(err)
+	}
+	gid, err := strconv.ParseInt(user.Gid, 10, 32)
+	if err != nil {
+		panic(err)
+	}
+	a.Uid = uint32(uid)
+	a.Gid = uint32(gid)
 	data, _ := ds.ReadAll(ctx)
 	a.Size = uint64(len(data))
 	return nil
