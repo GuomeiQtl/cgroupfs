@@ -20,6 +20,7 @@ func Serve(mountPoint, cgroupDir, vethName string) error {
 		fuse.Subtype("cgroupfs"),
 		fuse.LocalVolume(),
 		fuse.VolumeName("cgroup volume"),
+                fuse.AllowOther(),
 	)
 	if err != nil {
 		return err
